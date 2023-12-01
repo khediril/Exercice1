@@ -2,8 +2,8 @@
 
 Tapez les commandes suivantes:
 
-$ git clone https://github.com/khediril/Exercice1.git
-$ cd Exercice1
+1. $ git clone https://github.com/khediril/Exercice1.git
+2. $ cd Exercice1
 $ composer install
 $ symfony console doctrine:database:create
 
