@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AppController!{% endblock %}
+
+{% block body %}
+<h1>Recherche d'article</h1>
+<form action="{{ path("resultat") }}" method="get">
+   Article a rechercher : <input type="search" name="mot" placeholder="Search"><br>
+    <input type="submit" value="Chercher">
+</form>
+{% endblock %}

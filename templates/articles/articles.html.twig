@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AppController!{% endblock %}
+
+{% block body %}
+<div class="container">
+  
+{% for article in articles %}
+ <h1> {{ article.titre }}</h1>
+ <h3> {{ article.datepub }} </h3>
+ <p> {{ article.text }}  </p>
+  
+
+{% endfor %}
+</div>
+{% endblock %}

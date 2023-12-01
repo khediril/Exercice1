@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits{% endblock %}
+
+{% block body %}
+   <div class="container">
+    
+  
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Nom</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+   {% for p in prods %}
+    <tr>
+      <th scope="row">{{ p.id }}</th>
+      <td>{{ p.name }}</td>
+      
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+ </div>
+{% endblock %}
