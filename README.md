@@ -7,7 +7,7 @@ Tapez les commandes suivantes:
 3. $ composer install
 4. $ symfony console doctrine:database:create
 
-effsacer le contenu du dossier migration du projet ensuite taper les commandes suivantes
+Effacer le contenu du dossier migration du projet ensuite taper les commandes suivantes
 
 5. $ symfony console make:migration
 6. $ symfony console doctrine:migrations:migrate
