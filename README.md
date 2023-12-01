@@ -1,4 +1,4 @@
-# pour recuperer ce projet sur votre machine:
+# pour récupérer ce projet sur votre machine:
 
 Tapez les commandes suivantes:
 
