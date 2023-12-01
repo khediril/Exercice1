@@ -27,7 +27,7 @@ class ProduitController extends AbstractController
         $produit = new Produit();
         $produit->setName($name);
         $produit->setPrice($price);
-        $produit->setDescription("bla bla bla");
+        $produit->setDescription("bla bla bla bla bla");
         
         $em->persist($produit);
         $em->flush();
