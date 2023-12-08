@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits{% endblock %}
+
+{% block body %}
+   <div class="container">
+    
+  <h2>Liste des categories</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Supprimer</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+   {% for c in categs %}
+    <tr>
+      <th scope="row">{{ c.id }}</th>
+      <td>{{ c.name }}</td>
+      <td><a href="{{ path('app_categorie_delete',{'id':c.id})}}" class="btn btn-primary"> Supprimer</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+ </div>
+{% endblock %}

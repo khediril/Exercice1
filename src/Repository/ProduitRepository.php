@@ -21,28 +21,46 @@ class ProduitRepository extends ServiceEntityRepository
         parent::__construct($registry, Produit::class);
     }
 
-//    /**
-//     * @return Produit[] Returns an array of Produit objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Produit[] Returns an array of Produit objects
+     */
+    public function findAllMinMax($min, $max): array
+    {
+        $req = $this->createQueryBuilder('p')
+        ->where('p.price >= :min')
+        ->andWhere('p.price <= :max')
+        ->setParameter('min', $min)
+        ->setParameter('max', $max)
+        ->orderBy('p.price', 'ASC')
+        //->setMaxResults(10)
+        ->getQuery();
+        $resultat = $req->getResult();
 
-//    public function findOneBySomeField($value): ?Produit
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        return $resultat;
+
+    }
+    public function findAllMinMax2($min, $max): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT p
+         FROM App\Entity\Produit p
+         WHERE p.price >= :min and p.price <= :max
+         ORDER BY p.price ASC'
+        )->setParameter('min', $min)
+        ->setParameter('max', $max);
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
+    //    public function findOneBySomeField($value): ?Produit
+    //    {
+    //        return $this->createQueryBuilder('p')
+    //            ->andWhere('p.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }

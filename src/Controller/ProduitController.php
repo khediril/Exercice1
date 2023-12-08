@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Produit;
 use App\Repository\ProduitRepository;
+use App\Repository\CategorieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,6 +12,30 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProduitController extends AbstractController
 {
+   
+    #[Route('/liste/{min}/{max}', name: 'app_produit_liste_min_max')]
+    public function listeMinMax($min,$max,ProduitRepository $repos): Response
+    {
+        $produits = $repos->findAllMinMax2($min,$max);
+       // dd($produits);
+        
+        
+        return $this->render('produit/listeMinMax.html.twig', [
+            'prods' => $produits,'nb' => count($produits)
+        ]);
+    }
+    
+    #[Route('/categ/list/{idc}', name: 'app_produit_par_categorie')]
+    public function liste_par_categ($idc,CategorieRepository $repos): Response
+    {
+        $produits = $repos->find($idc)->getProduits();
+       // dd($produits);
+        
+        
+        return $this->render('produit/liste.html.twig', [
+            'prods' => $produits,
+        ]);
+    }
     #[Route('/liste', name: 'app_produit_liste')]
     public function liste(ProduitRepository $repos): Response
     {
@@ -32,8 +58,55 @@ class ProduitController extends AbstractController
         $em->persist($produit);
         $em->flush();
         
-        return $this->render('produit/liste.html.twig', [
-            'prods' => $produits,
-        ]);
+        return $this->redirectToRoute('app_produit_liste');
+        
     }
+    #[Route('/produit/delete/{id}', name: 'app_produit_delete')]
+    public function delete($id,ProduitRepository $repos,EntityManagerInterface $em): Response
+    {
+        $produit = $repos->find($id);
+       if(!$produit)
+       {
+
+       }
+       $em->remove($produit);
+       $em->flush(); 
+        
+        return $this->redirectToRoute('app_produit_liste');
+    }
+
+
+
+    #[Route('/produit/{id}', name: 'app_produit_details')]
+    public function detail($id,ProduitRepository $repos): Response
+    {
+        $produit = $repos->find($id);
+       if(!$produit)
+       {
+
+       }
+        
+        
+       return $this->render('produit/details.html.twig', [
+        'prod' => $produit,
+    ]);
+    }
+
+    #[Route('/produit/update/{id}/{nouvprix}', name: 'app_produit_update')]
+    public function update($id,$nouvprix, ProduitRepository $repos,EntityManagerInterface $em): Response
+    {
+        $produit = $repos->find($id);
+        $produit->setPrice($nouvprix);
+
+       if(!$produit)
+       {
+
+       }
+       $em->persist($produit);
+       $em->flush(); 
+        
+        return $this->redirectToRoute('app_produit_liste');
+    }
+
+
 }

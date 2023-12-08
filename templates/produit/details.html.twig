@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Details du produit {{ prod.name }}{% endblock %}
+
+{% block body %}
+   <div class="container">
+   <h2> Details du produit {{ prod.name }}</h2>
+  
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Description</th>
+      <th scope="col">Categorie</th>
+       <th scope="col">Supprimer</th>
+      
+     
+    </tr>
+  </thead>
+  <tbody>
+   
+    <tr>
+      <th scope="row">{{ prod.id }}</th>
+      <td>{{ prod.name }}</td>
+       <td>{{ prod.price }}</td>
+        <td>{{ prod.description }}</td>
+         
+      <td><a href="{{ path('app_produit_par_categorie',{'idc':prod.categorie.id})}}" class="btn btn-danger">{{ prod.categorie.name }}</td>
+      <td><a href="{{ path('app_produit_delete',{'id':prod.id})}}" class="btn btn-danger"> Supprimer</td>
+     
+    </tr>
+  
+  </tbody>
+</table>
+ </div>
+{% endblock %}
