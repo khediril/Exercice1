@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ProduitController extends AbstractController
 {
@@ -38,13 +39,13 @@ class ProduitController extends AbstractController
             'prods' => $produits,
         ]);
     }
-    #[Route('/liste', name: 'app_produit_liste')]
+    #[Route('produit/liste', name: 'app_produit_liste')]
     public function liste(ProduitRepository $repos): Response
     {
         $produits = $repos->findAll();
        // dd($produits);
         
-        
+       // $user = $this->getUser();
         return $this->render('produit/liste.html.twig', [
             'prods' => $produits,
         ]);
@@ -74,6 +75,7 @@ class ProduitController extends AbstractController
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
             //$produit = $form->getData();
+            //$produit->setDateCreation(new \DateTime());
             $em->persist($produit);
             $em->flush();
             $this->addFlash('info',
@@ -90,9 +92,11 @@ class ProduitController extends AbstractController
     }
     
 
-    #[Route('/produit/delete/{id}', name: 'app_produit_delete')]
+    #[Route('/prod/delete/{id}', name: 'app_produit_delete')]
     public function delete($id,ProduitRepository $repos,EntityManagerInterface $em): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
         $produit = $repos->find($id);
        if(!$produit)
        {
@@ -122,7 +126,7 @@ class ProduitController extends AbstractController
         'prod' => $produit,
     ]);
     }
-
+    #[IsGranted('ROLE_ADMIN')]
     #[Route('/produit/update/{id}/{nouvprix}', name: 'app_produit_update')]
     public function update($id,$nouvprix, ProduitRepository $repos,EntityManagerInterface $em): Response
     {

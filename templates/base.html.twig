@@ -34,11 +34,11 @@
             <li><a class="dropdown-item" href="{{ path('app_produit_liste')}}">Liste des produits</a></li>
             <li><a class="dropdown-item" href="{{ path('app_produit_liste_categ')}}">Liste des categories</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item" href="{{ path('app_produit_add2')}}">Ajouter nouveau produit</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          <a class="nav-link" href="{{ path('app_logout')}}" tabindex="-1">Logout</a>
         </li>
       </ul>
       <form class="d-flex">

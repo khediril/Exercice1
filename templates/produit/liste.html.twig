@@ -4,6 +4,8 @@
 
 {% block body %}
    <div class="container">
+   
+   <h3>Connected User : {{ app.user.nom }}:{{ app.user.email }}</h3>
    {% for message in app.flashes('info') %}
     
     <div class="alert alert-success" role="alert">
@@ -31,7 +33,13 @@
     <tr>
       <th scope="row">{{ p.id }}</th>
       <td>{{ p.name }}</td>
-      <td><a href="{{ path('app_produit_delete',{'id':p.id})}}" class="btn btn-danger"> Supprimer</td>
+      <td>
+      {% if  is_granted('ROLE_ADMIN') %}
+      
+      <a href="{{ path('app_produit_delete',{'id':p.id})}}" class="btn btn-danger"> Supprimer</a>
+      {% endif %}
+      </td>
+      
       <td><a href="{{ path('app_produit_details',{'id':p.id})}}" class="btn btn-primary"> Details</td>
     </tr>
     {% endfor %}
